@@ -1,26 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
+import Editor, { Value } from '@react-page/editor';
+
+import { cellPlugins } from './plugins/cellPlugins';
+
+export default function SimpleExample() {
+  const [value, setValue] = React.useState<Value>({} as Value);
+
+  React.useEffect(() => {
+    const CustomEditor = document.getElementById("custom-editor") as HTMLDivElement
+    console.log(CustomEditor, value)
+  }, [value])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="custom-editor">
+      <Editor cellPlugins={cellPlugins} value={value} onChange={setValue} />
     </div>
-  );
-}
-
-export default App;
+  )
+};
